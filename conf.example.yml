@@ -1,0 +1,25 @@
+basic:
+  # monitor/agent
+  mode: monitor
+  port: 8989
+  pass: 
+  salt: 
+  enable_ssl: true
+  # TODO: info/warning/error/none
+  log_level: none
+
+feature:
+  # Enable gofiber's prefork feature
+  prefork: false
+
+servers:
+  - name: server name
+    host: host address of server, use domain or ip address
+    port: port of agent
+    enable_ssl: false
+    enable_ssh: true
+    ssh_user: for example, root
+    ssh_port: ssh port
+    location: 2 code or full 
+    # ws connection cannot be established from HTTPS page, config this to `true` to use monitor's proxy socket instead.
+    use_proxy: true
