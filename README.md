@@ -20,6 +20,14 @@ The code of "Server-Agent" is fully open sourced and has __NO WARRANTY__ of its 
   - ...
 ```
 
+## Usage
+
+```bash
+nohup ./server-agent > /dev/null 2>&1 &
+# Or print log to file
+nohup ./server-agent > server-agent.out 2>&1 &
+```
+
 ## Build
 
 You can compile the executable file yourself, like other common go package.
