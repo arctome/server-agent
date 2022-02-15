@@ -42,6 +42,10 @@ func main() {
 	app.Use(cors.New())
 	app.Use("/", func(c *fiber.Ctx) error {
 		if strings.HasPrefix(c.Path(), "/api") {
+			// Except `/api/login`
+			if c.Path() == "/api/login" {
+				return c.Next()
+			}
 			exist_token := c.GetReqHeaders()["Server-Agent-Token"]
 			if exist_token == "" {
 				log.Printf("Request %s doesn't have token.", c.Path())
