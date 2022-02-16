@@ -34,8 +34,14 @@ func main() {
 		log.Panicln(err)
 	}
 
+	var networkStr = fiber.NetworkTCP4
+	if cfg.Feature.UseIpv6 {
+		networkStr = fiber.NetworkTCP6
+	}
+
 	app := fiber.New(fiber.Config{
 		Prefork: cfg.Feature.Prefork,
+		Network: networkStr,
 	})
 
 	// Middlewares

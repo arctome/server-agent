@@ -23,6 +23,7 @@ type SAConfigBasic struct {
 type SAConfigService struct {
 	Prefork      bool `yaml:"prefork"`
 	SinglePageUI bool `yaml:"spa_ui"`
+	UseIpv6      bool `yaml:"use_ipv6"`
 }
 
 type SAConfigServer struct {
