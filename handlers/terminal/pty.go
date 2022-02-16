@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"strings"
 
 	"github.com/creack/pty"
 	"github.com/gofiber/websocket/v2"
@@ -90,7 +91,10 @@ func CommandInteractive(c *websocket.Conn) {
 		mt, msg, err := c.ReadMessage()
 		if err != nil {
 			log.Println(err.Error())
-			if err.Error() == "websocket: close 1005 (no status)" {
+			// Treat these errors as common condition, just quit goroutine
+			// - websocket: close 1001 (going away)
+			// - websocket: close 1005 (no status)
+			if strings.HasPrefix(err.Error(), "websocket: ") {
 				quit <- true
 			}
 			break
