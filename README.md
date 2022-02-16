@@ -101,4 +101,8 @@ servers:
 feature:
   # Enable gofiber's prefork feature
   prefork: false
+  # Decided by your `./pages`, if you use `react` or `vue`, please set this to `true`
+  spa_ui: true
+  # See [pull request #1155](https://github.com/gofiber/fiber/pull/1155), for ipv6 only server.
+  use_ipv6: true
 ```
