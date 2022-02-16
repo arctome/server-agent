@@ -25,9 +25,6 @@
 # License
 !LICENSE
 
-# Default UI Dashboard
-!pages/**/*
-
 # !Makefile
 
 # ...even if they are in subdirectories
