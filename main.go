@@ -50,6 +50,9 @@ func main() {
 			if exist_token == "" {
 				log.Printf("Request %s doesn't have token.", c.Path())
 				if c.Method() == "GET" {
+					if cfg.Feature.SinglePageUI {
+						return c.Redirect("/login", 307)
+					}
 					return c.Redirect("/login.html", 307)
 				}
 				return c.SendStatus(403)
@@ -57,6 +60,9 @@ func main() {
 			if exist_token != Utils.HmacSha256("admin:"+cfg.Basic.Pass, cfg.Basic.Salt) {
 				log.Printf("Request %s is forbidden.", c.Path())
 				if c.Method() == "GET" {
+					if cfg.Feature.SinglePageUI {
+						return c.Redirect("/login", 307)
+					}
 					return c.Redirect("/login.html", 307)
 				}
 				return c.SendStatus(403)
@@ -194,7 +200,6 @@ func main() {
 
 	// monitor's only routes
 	if cfg.Basic.Mode == "monitor" {
-		app.Static("/", "./pages")
 		app.Post("/api/login", func(c *fiber.Ctx) error {
 			p := new(LoginStruct)
 			if err := c.BodyParser(p); err != nil {
@@ -219,6 +224,15 @@ func main() {
 		app.Get("/socket/terminal", websocket.New(func(c *websocket.Conn) {
 			SATerminal.CommandInteractive(c)
 		}))
+		// Dashboard UI
+		app.Static("/", "./pages")
+		// Add fallback to `index.html` for SPA dashboard
+		if cfg.Feature.SinglePageUI {
+			log.Print("Dashboard is running in SPA mode.")
+			app.Get("*", func(c *fiber.Ctx) error {
+				return c.SendFile("./pages/index.html")
+			})
+		}
 	}
 
 	log.Fatal(app.Listen(":" + cfg.Basic.Port))

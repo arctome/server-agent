@@ -11,6 +11,8 @@ basic:
 feature:
   # Enable gofiber's prefork feature
   prefork: false
+  # Support SPA dashboard, will add a route that fallback all request cannot be catched to "pages/index.html"
+  spa_ui: true
 
 servers:
   - name: server name

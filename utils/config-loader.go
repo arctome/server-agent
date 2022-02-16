@@ -21,7 +21,8 @@ type SAConfigBasic struct {
 }
 
 type SAConfigService struct {
-	Prefork bool `yaml:"prefork"`
+	Prefork      bool `yaml:"prefork"`
+	SinglePageUI bool `yaml:"spa_ui"`
 }
 
 type SAConfigServer struct {
