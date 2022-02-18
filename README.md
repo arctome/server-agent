@@ -28,6 +28,15 @@ nohup ./server-agent > /dev/null 2>&1 &
 nohup ./server-agent > server-agent.out 2>&1 &
 ```
 
+if you want to check the agent is running or kill it, run command below:
+
+```bash
+# Command below will echo the PID of server-agent
+ps -aux | grep server-agent | grep -v grep
+# If you want to kill it
+kill -9 {PID}
+```
+
 ## Build
 
 You can compile the executable file yourself, like other common go package.
